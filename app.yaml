@@ -1,0 +1,29 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+  expiration: "364d"
+
+- url: /manifest\.json
+  static_files: manifest.json
+  upload: manifest\.json
+
+- url: /icons
+  static_dir: icons
+  expiration: "364d"
+
+- url: /scripts
+  static_dir: scripts
+
+- url: /.*
+  script: memo.app
+
+libraries:
+- name: webapp2
+  version: latest
+- name: jinja2
+  version: latest
