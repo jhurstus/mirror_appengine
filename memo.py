@@ -18,12 +18,16 @@ class Memo(ndb.Model):
   memo = ndb.StringProperty()
 
 
+def getMemoText():
+  memo_row = MEMO_KEY.get()
+  if memo_row is not None:
+    return memo_row.memo
+  return ''
+
+
 class MainPage(webapp2.RequestHandler):
   def get(self):
-    memo_text = ''
-    memo_row = MEMO_KEY.get()
-    if memo_row is not None:
-      memo_text = memo_row.memo
+    memo_text = getMemoText()
 
     template_values = {
       'memo': memo_text
@@ -33,6 +37,10 @@ class MainPage(webapp2.RequestHandler):
 
 
 class MemoPost(webapp2.RequestHandler):
+  def get(self):
+    self.response.headers['Content-Type'] = 'text/plain'
+    self.response.write(getMemoText())
+
   def post(self):
     text = self.request.get('memo')
     if text is None:
