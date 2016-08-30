@@ -49,7 +49,7 @@ class MemoPost(webapp2.RequestHandler):
       # Cap memo length to 10k to prevent spamming of datastore.
       text = text[:10**4]
 
-    memo = Memo(memo=text, id=MEMO_ID)
+    memo = Memo(memo=text.strip(), id=MEMO_ID)
     memo.put()
 
 
